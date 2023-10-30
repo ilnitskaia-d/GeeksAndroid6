@@ -2,6 +2,7 @@ package com.example.geeksandroid6.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.geeksandroid6.R
 import com.example.geeksandroid6.databinding.ActivityMainBinding
@@ -20,5 +21,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel.getPlaylist()
+
+        viewModel.playlists.observe(this) {
+            binding.tvText.text = it.toString()
+        }
     }
 }

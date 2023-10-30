@@ -13,8 +13,8 @@ class YouTubeRepo @Inject constructor(
 
     fun getPlaylists(): List<Item> {
         val response = api.getPlaylists(
-            "",
-            "",
+            "AIzaSyCyJjiCHO9ivu3DTlgvOQVhmcbq0czluq4",
+            "UCkxZg2ueb8OYjbDUJiB6wrw",
             "snippet, contentDetails",
         30
         )
@@ -23,6 +23,6 @@ class YouTubeRepo @Inject constructor(
         if (response.isSuccessful && response.body() != null) {
             result = response.body()!!.items
         }
+        return result
     }
-
 }
