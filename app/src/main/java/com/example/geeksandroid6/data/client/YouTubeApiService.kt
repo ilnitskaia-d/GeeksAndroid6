@@ -1,6 +1,7 @@
 package com.example.geeksandroid6.data.client
 
 import com.example.geeksandroid6.data.model.BaseResponse
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,5 +15,5 @@ interface YouTubeApiService {
         @Query("part") part: String,
         @Query("maxResults") maxResults: Int,
 
-    ):Response<BaseResponse>
+    ): Call<BaseResponse>
 }
