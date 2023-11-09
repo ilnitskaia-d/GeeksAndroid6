@@ -13,11 +13,14 @@ class MainViewModel @Inject constructor(
     private val repo: YouTubeRepo
 ): ViewModel() {
 
+//    private val _playlists = MutableLiveData<List<Item>>()
+//    val playlists : LiveData<List<Item>> = _playlists
 
-    private val _playlists = MutableLiveData<List<Item>>()
-    val playlists : LiveData<List<Item>> = _playlists
+    fun getPlaylist(): LiveData<List<Item>> {
+        return repo.getPlaylists()
+    }
 
-    fun getPlaylist() {
-        _playlists.value = repo.getPlaylists()
+    fun getVideos(playlistId: String): LiveData<List<Item>> {
+        return repo.getVideos(playlistId)
     }
 }

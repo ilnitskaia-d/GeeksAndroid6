@@ -2,6 +2,7 @@ package com.example.geeksandroid6.di
 
 import com.example.geeksandroid6.BuildConfig
 import com.example.geeksandroid6.data.client.YouTubeApiService
+import com.example.geeksandroid6.data.repo.YouTubeRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,17 +12,19 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 object YouTubeModule {
 
+    @Singleton
     @Provides
     fun provideYouTubeApiService(
         retrofit: Retrofit
     ) : YouTubeApiService = retrofit.create(YouTubeApiService::class.java)
 
-
+    @Singleton
     @Provides
     fun provideRetrofitClient(
         okHttpClient: OkHttpClient
@@ -31,6 +34,7 @@ object YouTubeModule {
             .client(okHttpClient)
             .build()
 
+    @Singleton
     @Provides
     fun provideOkHttpClient(
         interceptor: HttpLoggingInterceptor
@@ -41,6 +45,7 @@ object YouTubeModule {
             .connectTimeout(10, TimeUnit.SECONDS)
             .build()
 
+    @Singleton
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor()
@@ -48,4 +53,9 @@ object YouTubeModule {
         return interceptor
     }
 
+    @Singleton
+    @Provides
+    fun provideYouTubeRepo(
+        apiService: YouTubeApiService
+    ) = YouTubeRepo(apiService)
 }
