@@ -30,7 +30,9 @@ class VideosAdapter: ListAdapter<Item, VideosAdapter.VideoViewHolder>(
     }
 
     class VideoItemDiffUtil: DiffUtil.ItemCallback<Item>() {
-        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean = oldItem == newItem //toDo: add id's when response is ready
+        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean =
+            oldItem == newItem //toDo: add id's when response is ready
 
         override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean = oldItem == newItem
+    }
 }
