@@ -17,7 +17,7 @@ interface YouTubeApiService {
 
     ): Response<BaseResponse>
 
-    @GET("videos")
+    @GET("playlistItems")
     suspend fun getVideos(
         @Query("key") apiKey: String,
         @Query("playlistId") playlistId: String,
