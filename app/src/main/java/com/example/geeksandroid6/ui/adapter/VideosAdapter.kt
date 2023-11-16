@@ -6,14 +6,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
+import com.example.geeksandroid6.data.model.PlaylistItem
 import com.example.geeksandroid6.databinding.ItemVideoBinding
+import org.koin.core.component.getScopeId
 
-class VideosAdapter: ListAdapter<Item, VideosAdapter.VideoViewHolder>(
+class VideosAdapter: ListAdapter<PlaylistItem, VideosAdapter.VideoViewHolder>(
     VideoItemDiffUtil()
 ) {
     class VideoViewHolder(private val binding: ItemVideoBinding): ViewHolder(binding.root) {
-        fun onBind(item: Item?) {
-            binding.tvTitle.text = "video"
+        fun onBind(item: PlaylistItem?) {
+            binding.tvTitle.text = item?.snippet?.title
+            Glide.with(itemView.context)
+                .load(item?.snippet?.thumbnails?.url)
+                .into(binding.ivVideo)
         }
     }
 
@@ -29,10 +35,9 @@ class VideosAdapter: ListAdapter<Item, VideosAdapter.VideoViewHolder>(
         holder.onBind(getItem(position))
     }
 
-    class VideoItemDiffUtil: DiffUtil.ItemCallback<Item>() {
-        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean =
-            oldItem == newItem //toDo: add id's when response is ready
+    class VideoItemDiffUtil: DiffUtil.ItemCallback<PlaylistItem>() {
+        override fun areItemsTheSame(oldItem: PlaylistItem, newItem: PlaylistItem): Boolean = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean = oldItem == newItem
+        override fun areContentsTheSame(oldItem: PlaylistItem, newItem: PlaylistItem): Boolean = oldItem == newItem
     }
 }

@@ -2,14 +2,13 @@ package com.example.geeksandroid6.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.geeksandroid6.R
 import com.example.geeksandroid6.databinding.ActivitySecondBinding
 import com.example.geeksandroid6.ui.adapter.VideosAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SecondActivity : AppCompatActivity() {
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModel()
     private lateinit var binding: ActivitySecondBinding
     private val adapter by lazy { VideosAdapter() }
 
@@ -18,8 +17,7 @@ class SecondActivity : AppCompatActivity() {
         binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val playlistId : String = intent.getBundleExtra("playlistId").toString()
-        viewModel.getVideos(playlistId)
+        val playlistId = intent.getStringExtra("playlistId").toString()
 
         binding.rv.apply {
             adapter = this@SecondActivity.adapter
@@ -31,7 +29,7 @@ class SecondActivity : AppCompatActivity() {
         }
 
         viewModel.getVideos(playlistId).observe(this) {
-//            adapter.submitList(it)
+            adapter.submitList(it)
         }
     }
 }
