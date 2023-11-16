@@ -21,6 +21,7 @@ class VideosAdapter: ListAdapter<Video, VideosAdapter.VideoViewHolder>(
             Glide.with(itemView)
                 .load(item?.snippet?.thumbnails?.url)
                 .into(binding.ivVideo)
+            binding.tvTime.text = item?.contentDetails?.duration
         }
     }
 

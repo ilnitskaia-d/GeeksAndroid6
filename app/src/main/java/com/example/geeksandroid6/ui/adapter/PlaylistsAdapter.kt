@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.geeksandroid6.data.model.Item
 import com.example.geeksandroid6.databinding.ItemPlaylistBinding
 
-class PlaylistsAdapter(val onClick:(playlistId: String)->Unit): ListAdapter<Item, PlaylistsAdapter.PlaylistViewHolder>(
+class PlaylistsAdapter(val onClick:(playlistId: String, imageUrl: String)->Unit): ListAdapter<Item, PlaylistsAdapter.PlaylistViewHolder>(
     PlaylistItemDiffUtil()
 ) {
 
@@ -28,14 +28,14 @@ class PlaylistsAdapter(val onClick:(playlistId: String)->Unit): ListAdapter<Item
     }
 
 
-    class PlaylistViewHolder(private val binding: ItemPlaylistBinding, val onClick:(playlistId: String)->Unit): ViewHolder(binding.root) {
+    class PlaylistViewHolder(private val binding: ItemPlaylistBinding, val onClick:(playlistId: String, imageUrl: String)->Unit): ViewHolder(binding.root) {
         fun onBind(item: Item?) {
             binding.tvTitle.text = item?.snippet?.title
             Glide.with(itemView.context)
                 .load(item?.snippet?.thumbnails?.medium?.url)
                 .into(binding.ivPlaylists)
             itemView.setOnClickListener {
-                onClick(item?.id.toString())
+                onClick(item?.id.toString(), item?.snippet?.thumbnails?.medium?.url.toString())
             }
         }
     }

@@ -9,11 +9,11 @@ import com.example.geeksandroid6.data.model.Video
 import com.example.geeksandroid6.data.repo.YouTubeRepo
 import org.koin.java.KoinJavaComponent.inject
 
-class MainViewModel(
+class SecondViewModel(
     private val repo: YouTubeRepo
 ): ViewModel() {
 
-    fun getPlaylist(): LiveData<List<Item>> {
-        return repo.getPlaylists()
+    fun getVideos(playlistId: String): LiveData<List<Video>> {
+        return repo.getVideos(playlistId)
     }
 }

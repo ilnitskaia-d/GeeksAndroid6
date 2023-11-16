@@ -34,9 +34,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onClick(playlistId: String){
+    private fun onClick(playlistId: String, imageUrl: String){
         val intent = Intent(this, SecondActivity::class.java)
-        intent.putExtra("playlistId", playlistId)
+        intent.putExtra("playlist", playlistId)
+        intent.putExtra("url", imageUrl)
         startActivity(intent)
     }
 }
